@@ -31,7 +31,6 @@ class Position {
         }
       }
     }
-    i++;
   }
 
   compare(other){
