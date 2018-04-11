@@ -1,5 +1,39 @@
 {
   "name": "twine",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "babel-preset-react": "^6.24.1",
+    "react": "^16.3.1",
+    "react-dom": "^16.3.1",
+    "webpack": "^4.5.0",
+    "webpack-cli": "^2.0.14"
+  },
+  "description": "Twine is a real-time collaborative text editor built in React using logoot (a conflict-free replicable data type), React, and Rails.",
+  "version": "1.0.0",
+  "main": "logoot.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "dev": "webpack --watch --mode development --module-bind js=babel-loader",
+    "build": "webpack --mode production --module-bind js=babel-loader",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rictorlome/twine.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rictorlome/twine/issues"
+  },
+  "homepage": "https://github.com/rictorlome/twine#readme",
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.4",
+    "babel-preset-env": "^1.6.1"
+  }
 }
