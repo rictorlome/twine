@@ -1,3 +1,6 @@
+// NOTE: This application uses Webpack 4, which requires a recent version of NPM.  To run Webpack make sure your NVM is set to use 9.10.1, and then run the command `npm run dev` (for development mode) or `npm run build` for production.
+
+
 const path = require("path");
 
 module.exports = {
