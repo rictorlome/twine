@@ -1,4 +1,4 @@
-export const letterReducer = (oldState={}, action) => {
+export const charReducer = (oldState={}, action) => {
   Object.freeze(oldState);
   switch(action.type) {
     default:

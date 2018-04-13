@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
 
-import { letterReducer } from './letter_reducer.js'
+import { charReducer } from './char_reducer.js'
 
 const entitiesReducer = combineReducers({
-  letters: letterReducer,
+  chars: charReducer,
 })
 
 export const rootReducer = combineReducers({
