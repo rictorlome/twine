@@ -1,16 +1,41 @@
-class Position {
-  const SIZE = 100;
-  const MIN_POS = {stack: [new Identifier(0,0)]};
-  const MAX_POS = {stack: [new Identifier(SIZE,0)]};
+// const SIZE = 100;
+// const MIN_POS = {stack: [new Identifier(0,0)]};
+// const MAX_POS = {stack: [new Identifier(SIZE,0)]};
+
+export class Identifier {
+  constructor(digit, site) {
+    this.digit = digit;
+    this.site = site;
+  }
+
+  compare(other){
+    if (this.digit < other.digit) {
+      return -1;
+    } else if (this.digit > other.digit) {
+      return 1;
+    } else {
+      return Math.sign(this.site - other.site);
+    }
+  }
+}
+
+
+export class Position {
+  static get SIZE() {
+    return 100;
+  }
+  static get MIN_POS() {
+    return {stack: [new Identifier(0,0)]};
+  }
+  static get MAX_POS() {
+    return {stack: [new Identifier(Position.SIZE,0)]}
+  }
 
   constructor(pos1, pos2, mySite){
     pos1 = pos1 || MIN_POS
     pos2 = pos2 || MAX_POS
     this.stack = this.findPosBetween(pos1,pos2, mySite);
   }
-  // 4 3 2 1
-  // 4 3 2 1 0 0 1
-  // 4 3 2 1 0 1
 
   findPosBetween(pos1, pos2, mySite){
     //returns an array of identifiers
@@ -42,25 +67,7 @@ class Position {
   }
 }
 
-
-class Identifier {
-  constructor(digit, site) {
-    this.digit = digit;
-    this.site = site;
-  }
-
-  compare(other){
-    if (this.digit < other.digit) {
-      return -1;
-    } else if (this.digit > other.digit) {
-      return 1;
-    } else {
-      return Math.sign(this.site - other.site);
-    }
-  }
-}
-
-class Char {
+export class Char {
   constructor(pos, lamport, value){
     this.pos = pos;
     this.lamport = lamport;
