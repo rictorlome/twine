@@ -37,7 +37,18 @@ export class Position {
     this.stack = this.findPosBetween(pos1,pos2, mySite);
   }
 
-  findPosBetween(pos1, pos2, mySite){
+
+
+  compare(other){
+    for (let i = 0; i < Math.min(this.stack.length, other.stack.length); i++) {
+      const comp = this.stack[i].compare(other.stack[i]);
+      if (comp !== 0) return comp;
+    }
+    return Math.sign(this.stack.length - other.stack.length);
+  }
+}
+
+Position.findPosBetween = function(pos1, pos2, mySite){
     //returns an array of identifiers
     const stack1 = pos1.stack;
     const stack2 = pos2.stack;
@@ -56,16 +67,8 @@ export class Position {
         }
       }
     }
+    return newStack;
   }
-
-  compare(other){
-    for (let i = 0; i < Math.min(this.stack.length, other.stack.length); i++) {
-      const comp = this.stack[i].compare(other.stack[i]);
-      if (comp !== 0) return comp;
-    }
-    return Math.sign(this.stack.length - other.stack.length);
-  }
-}
 
 export class Char {
   constructor(pos, lamport, value){
