@@ -21,7 +21,7 @@
   "scripts": {
     "dev": "webpack --watch --mode development --module-bind js=babel-loader",
     "build": "webpack --mode production --module-bind js=babel-loader",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "ava"
   },
   "repository": {
     "type": "git",
@@ -35,9 +35,11 @@
   },
   "homepage": "https://github.com/rictorlome/twine#readme",
   "devDependencies": {
+    "ava": "^1.0.0-beta.3",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.4",
     "babel-preset-env": "^1.6.1",
-    "redux-logger": "^3.0.6"
+    "redux-logger": "^3.0.6",
+    "webpack-node-externals": "^1.7.2"
   }
 }
