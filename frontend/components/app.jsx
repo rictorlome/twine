@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Document from './document/document.jsx';
+import Document from './document/document_container.js';
 
 const App = () => {
   return (
