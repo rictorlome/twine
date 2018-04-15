@@ -1,6 +1,4 @@
-// const SIZE = 100;
-// const MIN_POS = {stack: [new Identifier(0,0)]};
-// const MAX_POS = {stack: [new Identifier(SIZE,0)]};
+//NOTE: The following article was instrumental in understanding the basic logoot structure: http://digitalfreepen.com/2017/10/06/simple-real-time-collaborative-text-editor.html
 
 export class Identifier {
   constructor(digit, site) {
@@ -38,15 +36,15 @@ export class Position {
   }
 }
 
-Position.compare = function(pos1, pos2){
-    for (let i = 0; i < Math.min(pos1.stack.length, pos2.stack.length); i++) {
-      const comp = pos1.stack[i].compare(pos2.stack[i]);
-      if (comp !== 0) return comp;
-    }
-    return Math.sign(pos1.stack.length - pos2.stack.length);
-  };
+Position.compare = function(pos1, pos2) {
+  for (let i = 0; i < Math.min(pos1.stack.length, pos2.stack.length); i++) {
+    const comp = pos1.stack[i].compare(pos2.stack[i]);
+    if (comp !== 0) return comp;
+  }
+  return Math.sign(pos1.stack.length - pos2.stack.length);
+};
 
-Position.findPosBetween = function(pos1, pos2, mySite){
+Position.findPosBetween = function(pos1, pos2, mySite) {
   const comparison = Position.compare(pos1,pos2);
   if (comparison === 0) throw 'Positions are equal';
   if (comparison !== -1) return Position.findPosBetween(pos2,pos1,mySite);
@@ -54,38 +52,23 @@ Position.findPosBetween = function(pos1, pos2, mySite){
     const stack1 = pos1.stack;
     const stack2 = pos2.stack;
     const newStack = [];
-    for (var i = 0; i < stack1.length; i++) {
-      if (stack1[i].compare(stack2[i]) === 0) {
-        newStack.push(stack1[i]);
+    for (let i = 0; i < stack2.length; i++) {
+      const id_1 = stack1[i] || new Identifier(0,mySite);
+      const id_2 = stack2[i];
+      if (id_1.compare(id_2) === 0) {
+        newStack.push(id_1);
         continue;
       } else {
-        var delta = stack2[i].digit - stack1[i].digit
+        const delta = id_2.digit - id_1.digit
         if (delta > 1) {
-          newStack.push(new Identifier(stack1[i].digit+1,mySite))
+          newStack.push(new Identifier(id_1.digit+1,mySite))
           return newStack;
-        } else if (delta == 1) {
-          newStack.push(stack1[i]);
+        } else if (delta === 1) {
+          newStack.push(id_1);
           newStack.push(new Identifier(1,mySite));
           return newStack;
         }
       }
-    }
-    //If function has not returned, all the digits up to the length of pos1 were the same.
-    while (i < stack2.length) {
-      //Now it's as if pos1 had zero at the i'th position
-      delta = stack2[i].digit - 0;
-      if (delta > 1) {
-        newStack.push(new Identifier(1,mySite))
-        return newStack;
-      } else if (delta === 1) {
-        newStack.push(new Identifier(0,mySite))
-        newStack.push(new Identifier(1,mySite))
-        return newStack;
-      } else {
-        newStack.push(new Identifier(0,mySite))
-        continue;
-      }
-      i++;
     }
   }
 
@@ -95,7 +78,6 @@ export class Char {
     this.lamport = lamport;
     this.value = value;
   }
-
 }
 
 class Version {

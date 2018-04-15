@@ -10,7 +10,6 @@ const another_large_id_site_2 = new Identifier(100,2);
 
 describe('Identifier', () => {
   describe('Compare', () => {
-
     it('Correctly identifies Identifier with lesser digit', () => {
       expect(small_id_site_1.compare(large_id_site_1)).toEqual(-1);
       expect(small_id_site_1.compare(large_id_site_2)).toEqual(-1);
