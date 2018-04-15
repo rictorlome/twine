@@ -48,6 +48,23 @@ let resStack;
 
 describe('Position', () => {
   describe('Find Position Between', () => {
+    describe("When Position1 is greater than Position2", () => {
+      //Example case:
+      //4
+      //1 2
+      it('Internally swaps positions to run Position.compare(pos2,pos1,site)', () => {
+        resStack = Position.findPosBetween(pos_four,pos_one_two,0)
+        expect(resStack[0].digit).toEqual(2);
+        expect(resStack.length).toEqual(1);
+      });
+    });
+    describe("When Position1 is == Position2", () => {
+      it('Throws an error', () => {
+        expect( () => {
+          Position.findPosBetween(pos_four,pos_four,0)
+        }).toThrow(/equal/);
+      });
+    })
     describe('When delta between relevant Identifier digit is > 1', () => {
       //Example case:
       //1 2
@@ -75,13 +92,12 @@ describe('Position', () => {
         resStack = Position.findPosBetween(pos_four_three,pos_four_four,0);
         expect(resStack[0].digit).toEqual(4);
         expect(resStack[1].digit).toEqual(3);
-        expect(resStack[2].digit).toEqual(0);
-        expect(resStack[3].digit).toEqual(1);
-        expect(resStack.length).toEqual(4);
+        expect(resStack[2].digit).toEqual(1);
+        expect(resStack.length).toEqual(3);
       });
       it('Does not produce a new position with 0 as last Identifiers digit', () => {
         resStack = Position.findPosBetween(pos_four_two,pos_four_three,0);
-        expect(resStack[resStack.length-1]).toBeGreaterThan(0);
+        expect(resStack[resStack.length-1].digit).toBeGreaterThan(0);
       });
     });
     describe('When delta between last relevant Identifier digit is 0', () => {

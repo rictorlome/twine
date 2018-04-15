@@ -36,38 +36,57 @@ export class Position {
     pos2 = pos2 || MAX_POS
     this.stack = this.findPosBetween(pos1,pos2, mySite);
   }
-
-
-
-  compare(other){
-    for (let i = 0; i < Math.min(this.stack.length, other.stack.length); i++) {
-      const comp = this.stack[i].compare(other.stack[i]);
-      if (comp !== 0) return comp;
-    }
-    return Math.sign(this.stack.length - other.stack.length);
-  }
 }
 
+Position.compare = function(pos1, pos2){
+    for (let i = 0; i < Math.min(pos1.stack.length, pos2.stack.length); i++) {
+      const comp = pos1.stack[i].compare(pos2.stack[i]);
+      if (comp !== 0) return comp;
+    }
+    return Math.sign(pos1.stack.length - pos2.stack.length);
+  };
+
 Position.findPosBetween = function(pos1, pos2, mySite){
+  const comparison = Position.compare(pos1,pos2);
+  if (comparison === 0) throw 'Positions are equal';
+  if (comparison !== -1) return Position.findPosBetween(pos2,pos1,mySite);
     //returns an array of identifiers
     const stack1 = pos1.stack;
     const stack2 = pos2.stack;
     const newStack = [];
-    const minLength = Math.min(stack1.length,stack2.length);
-    for (let i = 0; i < minLength; i++) {
+    for (var i = 0; i < stack1.length; i++) {
       if (stack1[i].compare(stack2[i]) === 0) {
         newStack.push(stack1[i]);
         continue;
       } else {
-        const incremented = stack1[i].digit + 1;
-        if (incremented === stack2[i].digit) {
-          continue;
-        } else {
-          newStack.push(new Identifier(incremented, mySite))
+        var delta = stack2[i].digit - stack1[i].digit
+        if (delta > 1) {
+          newStack.push(new Identifier(stack1[i].digit+1,mySite))
+          return newStack;
+        } else if (delta == 1) {
+          newStack.push(stack1[i]);
+          newStack.push(new Identifier(1,mySite));
+          return newStack;
         }
       }
     }
-    return newStack;
+    //If function has not returned, all the digits up to the length of pos1 were the same.
+    while (i < stack2.length) {
+      //Now it's as if pos1 had zero at the i'th position
+      delta = stack2[i].digit - 0;
+      if (delta > 1) {
+        newStack.push(new Identifier(1,mySite))
+        return newStack;
+      } else if (delta === 1) {
+        newStack.push(new Identifier(0,mySite))
+        newStack.push(new Identifier(1,mySite))
+        return newStack;
+      } else {
+        newStack.push(new Identifier(0,mySite))
+        continue;
+      }
+      i++;
+    }
   }
 
 export class Char {
