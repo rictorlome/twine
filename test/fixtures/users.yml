@@ -1,14 +1,3 @@
-<<<<<<< HEAD
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-one:
-  name: MyString
-  temp: 
-
-two:
-  name: MyString
-  temp: 
-=======
 # == Schema Information
 #
 # Table name: users
@@ -40,4 +29,3 @@ one: {}
 #
 two: {}
 # column: value
->>>>>>> Implement auth with devise

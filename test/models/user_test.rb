@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 # == Schema Information
 #
 # Table name: users
@@ -20,7 +18,6 @@
 #  authentication_token   :string(30)
 #
 
->>>>>>> Implement auth with devise
 require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase

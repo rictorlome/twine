@@ -1,14 +1,3 @@
-<<<<<<< HEAD
-class User < ApplicationRecord
-  validates :name, presence: true
-  validates :temp, inclusion: [true, false]
-
-  has_many :participations
-
-  has_many :documents,
-    through: :participations,
-    source: :document
-=======
 # == Schema Information
 #
 # Table name: users
@@ -35,5 +24,4 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
->>>>>>> Implement auth with devise
 end
