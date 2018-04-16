@@ -1,0 +1,6 @@
+.navbar-wrapper {
+  height: 10vh;
+  background-color: blue;
+  display:grid;
+  grid-template-columns: repeat(5, 1fr);
+}

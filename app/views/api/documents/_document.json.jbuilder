@@ -1,3 +1,1 @@
-json.document do
-  json.extract! document, :id, :body
-end
+json.extract! document, :id, :body, :path

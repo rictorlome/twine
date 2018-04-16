@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180416130938) do
+ActiveRecord::Schema.define(version: 20180416213856) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,6 +19,8 @@ ActiveRecord::Schema.define(version: 20180416130938) do
     t.text "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "path"
+    t.index ["path"], name: "index_documents_on_path", unique: true
   end
 
   create_table "participations", force: :cascade do |t|

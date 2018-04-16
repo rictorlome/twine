@@ -1,0 +1,6 @@
+.create-document-button-wrapper {
+  background-color: yellow;
+  padding: 1%;
+  grid-column: 3/4;
+  cursor: pointer;
+}
