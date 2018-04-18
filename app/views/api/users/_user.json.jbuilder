@@ -1,3 +1,3 @@
-json.set! user.id do
-  json.extract! user, :id, :name, :temp
+json.user do
+  json.extract! user, :id, :name, :guest
 end
