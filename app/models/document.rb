@@ -16,7 +16,12 @@ class Document < ApplicationRecord
     through: :participations,
     source: :user
 
-  after_create_commit :generate_path
+  before_create :generate_path
+  before_create :set_body
+
+  def set_body
+    self.body = "Write code here"
+  end
 
   def generate_path
     self.path = SecureRandom.urlsafe_base64[0..10]

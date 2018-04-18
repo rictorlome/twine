@@ -5,5 +5,6 @@ Rails.application.routes.draw do
     resources :users, only: [:create, :index, :update]
     resources :documents, only: [:create]
   end
-
+  
+  mount ActionCable.server => '/cable'
 end

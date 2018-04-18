@@ -4,6 +4,9 @@ export class Document extends React.Component {
   constructor(props) {
     super(props)
   }
+  componentDidMount() {
+    this.props.createDocumentSubscription(this.props.currentDoc);
+  }
 
   render() {
     return (
