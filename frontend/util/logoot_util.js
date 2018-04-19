@@ -30,9 +30,9 @@ export class Position {
   }
 
   constructor(pos1, pos2, mySite){
-    pos1 = pos1 || MIN_POS
-    pos2 = pos2 || MAX_POS
-    this.stack = this.findPosBetween(pos1,pos2, mySite);
+    pos1 = pos1 || Position.MIN_POS
+    pos2 = pos2 || Position.MAX_POS
+    this.stack = Position.findPosBetween(pos1,pos2, mySite);
   }
 }
 
@@ -73,15 +73,46 @@ Position.findPosBetween = function(pos1, pos2, mySite) {
   }
 
 export class Char {
-  constructor(pos, lamport, value){
-    this.pos = pos;
+  constructor(chars, idx, lamport=0, value, site){
+    this.pos = this.getPosAtIdx(chars,idx,site);
     this.lamport = lamport;
     this.value = value;
   }
+
+  getPosAtIdx(chars,idx,site) {
+    let pos1;
+    let pos2;
+    chars.length === 0 ? pos1 = Position.MIN_POS : pos1 = chars[idx-1].pos
+    idx === chars.length ? pos2 = Position.MAX_POS : pos2 = chars[idx].pos
+    return new Position(pos1,pos2,site);
+  }
 }
 
-class Version {
-  constructor(){
-    this.chars = []
+export class CharString {
+  constructor() {
+    this.string = [];
+  }
+  add(char) {
+    this.string.push(char);
+    this.sort();
+  }
+  sort() {
+    //Bubble
+    if (this.string.length < 2) return;
+    let sorted = false;
+    while (!sorted) {
+      sorted = true;
+      for (let i = 0; i < this.string.length-1; i++) {
+        const comp = Position.compare(this.string[i].pos,this.string[i+1].pos)
+        debugger
+        if (comp === 1) {
+          const tmp = this.string[i];
+          this.string[i] = this.string[i+1];
+          this.string[i+1] = tmp;
+          sorted = false;
+        }
+      }
+    }
+    return;
   }
 }
