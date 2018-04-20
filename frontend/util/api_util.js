@@ -6,6 +6,13 @@ export const signup = (user) => {
   });
 };
 
+export const logout = () => {
+  return $.ajax({
+    url: '/api/session',
+    method: 'DELETE'
+  })
+}
+
 export const createDocument = () => {
   return $.ajax({
     url: '/api/documents',
