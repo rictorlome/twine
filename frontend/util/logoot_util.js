@@ -5,15 +5,15 @@ export class Identifier {
     this.digit = digit;
     this.site = site;
   }
+}
 
-  compare(other){
-    if (this.digit < other.digit) {
-      return -1;
-    } else if (this.digit > other.digit) {
-      return 1;
-    } else {
-      return Math.sign(this.site - other.site);
-    }
+Identifier.compare = function(id1, id2) {
+  if (id1.digit < id2.digit) {
+    return -1;
+  } else if (id1.digit > id2.digit) {
+    return 1;
+  } else {
+    return Math.sign(id1.site - id2.site);
   }
 }
 
@@ -38,7 +38,7 @@ export class Position {
 
 Position.compare = function(pos1, pos2) {
   for (let i = 0; i < Math.min(pos1.stack.length, pos2.stack.length); i++) {
-    const comp = pos1.stack[i].compare(pos2.stack[i]);
+    const comp = Identifier.compare(pos1.stack[i],pos2.stack[i]);
     if (comp !== 0) return comp;
   }
   return Math.sign(pos1.stack.length - pos2.stack.length);
@@ -55,7 +55,7 @@ Position.findPosBetween = function(pos1, pos2, mySite) {
     for (let i = 0; i < stack2.length; i++) {
       const id_1 = stack1[i] || new Identifier(0,mySite);
       const id_2 = stack2[i];
-      if (id_1.compare(id_2) === 0) {
+      if (Identifier.compare(id_1,id_2) === 0) {
         newStack.push(id_1);
         continue;
       } else {

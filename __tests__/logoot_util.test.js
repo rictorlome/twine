@@ -11,21 +11,21 @@ const another_large_id_site_2 = new Identifier(100,2);
 describe('Identifier', () => {
   describe('Compare', () => {
     it('Correctly identifies Identifier with lesser digit', () => {
-      expect(small_id_site_1.compare(large_id_site_1)).toEqual(-1);
-      expect(small_id_site_1.compare(large_id_site_2)).toEqual(-1);
+      expect(Identifier.compare(small_id_site_1,large_id_site_1)).toEqual(-1);
+      expect(Identifier.compare(small_id_site_1,large_id_site_2)).toEqual(-1);
     });
 
     it('Correctly identifies Identifier with greater digit', () => {
-      expect(large_id_site_1.compare(small_id_site_1)).toEqual(1);
-      expect(large_id_site_1.compare(small_id_site_2)).toEqual(1);
+      expect(Identifier.compare(large_id_site_1,small_id_site_1)).toEqual(1);
+      expect(Identifier.compare(large_id_site_1,small_id_site_2)).toEqual(1);
     });
 
     it('Correctly identifies Identifier with lesser site number when digits are equal', () => {
-      expect(small_id_site_1.compare(small_id_site_2)).toEqual(-1);
-      expect(small_id_site_2.compare(small_id_site_1)).toEqual(1);
+      expect(Identifier.compare(small_id_site_1,small_id_site_2)).toEqual(-1);
+      expect(Identifier.compare(small_id_site_2,small_id_site_1)).toEqual(1);
     })
     it('Correctly returns 0 when digits and site numbers are both equal', () => {
-      expect(large_id_site_2.compare(another_large_id_site_2)).toEqual(0);
+      expect(Identifier.compare(large_id_site_2,another_large_id_site_2)).toEqual(0);
     })
   })
 });

@@ -16,6 +16,9 @@ export class Document extends React.Component {
     this.props.createDocumentSubscription(this.props.currentDoc);
   }
   componentWillReceiveProps(nextProps) {
+    if (nextProps.currentDoc.id !== this.props.currentDoc.id) {
+      this.props.createDocumentSubscription(nextProps.currentDoc)
+    }
     //this is a temporary solution to close websocket loop
     nextProps.chars.forEach( (char) => {
       const modCharString = this.state.CharString;
