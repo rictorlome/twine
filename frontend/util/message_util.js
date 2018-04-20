@@ -8,6 +8,8 @@ export class Message {
   fire(Subscription) {
     if (this.type === "ADD") {
       Subscription.add(this);
+    } else if (this.type === "REMOVE") {
+      Subscription.remove(this);
     }
   };
 }

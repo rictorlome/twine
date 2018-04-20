@@ -8,13 +8,13 @@ import { CharString } from '../../util/logoot_util.js';
 import { createUser } from '../../actions/user_actions';
 import { pullDocument } from '../../actions/document_actions';
 
-import { getCurrentDoc, getCurrentSubscription } from '../../selectors/doc_selectors';
+import { getCurrentDoc, getCurrentSubscription, getCharString } from '../../selectors/doc_selectors';
 import { createDocumentSubscription } from '../../util/websocket_util.js'
 
 const msp = (state, withRouter) => {
   return {
     currentDoc: getCurrentDoc(state, withRouter),
-    chars: Object.values(state.entities.chars),
+    chars: getCharString(state),
 
   }
 }

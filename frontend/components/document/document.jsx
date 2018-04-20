@@ -26,19 +26,13 @@ export class Document extends React.Component {
         }
        )
     }
-    //this is a temporary solution to close websocket loop
-    nextProps.chars.forEach( (char) => {
-      const modCharString = this.state.CharString;
-      modCharString.add(char);
-      this.setState({CharString: modCharString})
-    })
   }
 
   handleChange(e) {
-    DocumentChangeHandler(this.state.CharString.string, e, this.props.currentDoc);
+    DocumentChangeHandler(this.props.chars, e, this.props.currentDoc);
   }
   getString() {
-    return this.state.CharString.string.map( (char) => char.value).join('')
+    return this.props.chars.map( (char) => char.value).join('')
   }
 
   render() {

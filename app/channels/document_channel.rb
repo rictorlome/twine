@@ -11,4 +11,9 @@ class DocumentChannel < ApplicationCable::Channel
     d = data['document']
     NewMessageBroadcastJob.perform_later(m,d)
   end
+  def remove(data)
+    m = data['message']
+    d = data['document']
+    NewMessageBroadcastJob.perform_later(m,d)
+  end  
 end
