@@ -1,6 +1,7 @@
-import React from 'react'
+import React from 'react';
 
-import { Char, CharString } from '../../util/logoot_util.js'
+import { Char, CharString } from '../../util/logoot_util.js';
+import { DocumentChangeHandler } from './document_change_handler.js';
 
 export class Document extends React.Component {
   constructor(props) {
@@ -8,24 +9,23 @@ export class Document extends React.Component {
     this.state = {
       CharString: new CharString(),
     }
-    this.sendMessage = this.sendMessage.bind(this);
+    this.handleChange = this.handleChange.bind(this);
     this.getString = this.getString.bind(this);
   }
   componentDidMount() {
     this.props.createDocumentSubscription(this.props.currentDoc);
   }
-  sendMessage(e) {
-    //create a char
-    e.preventDefault()
-    const cursorPosition = e.target.selectionStart - 1;
-    const char = new Char(this.state.CharString.string, cursorPosition, 0, e.nativeEvent.data, 0)
-    console.log(char.pos)
-    const modChars = this.state.CharString;
-    modChars.add(char);
+  componentWillReceiveProps(nextProps) {
+    //this is a temporary solution to close websocket loop
+    nextProps.chars.forEach( (char) => {
+      const modCharString = this.state.CharString;
+      modCharString.add(char);
+      this.setState({CharString: modCharString})
+    })
+  }
 
-    this.setState({CharString: modChars})
-    console.log(this.state.CharString)
-    //send it through websocket
+  handleChange(e) {
+    DocumentChangeHandler(this.state.CharString.string, e, this.props.currentDoc);
   }
   getString() {
     return this.state.CharString.string.map( (char) => char.value).join('')
@@ -35,7 +35,7 @@ export class Document extends React.Component {
     return (
       <div>
         <textarea id="document-id"
-          onChange={this.sendMessage}
+          onChange={this.handleChange}
           placeholder={"Hello from the textarea"}
           value={this.getString()}></textarea>
       </div>

@@ -104,7 +104,6 @@ export class CharString {
       sorted = true;
       for (let i = 0; i < this.string.length-1; i++) {
         const comp = Position.compare(this.string[i].pos,this.string[i+1].pos)
-        debugger
         if (comp === 1) {
           const tmp = this.string[i];
           this.string[i] = this.string[i+1];
