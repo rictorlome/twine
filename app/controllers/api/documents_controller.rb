@@ -8,4 +8,14 @@ class Api::DocumentsController < ApplicationController
     end
   end
 
+
+  def pull
+    ##what are params here?
+    @document = Document.find_by(path: params[:path])
+    if @document
+      render :show
+    else
+      render json: {errors: 'No such document'}, status: 404
+    end
+  end
 end

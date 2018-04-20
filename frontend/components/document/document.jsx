@@ -12,12 +12,19 @@ export class Document extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.getString = this.getString.bind(this);
   }
-  componentDidMount() {
+  componentWillMount() {
     this.props.createDocumentSubscription(this.props.currentDoc);
   }
+  componentDidMount() {
+    this.props.pullDoc();
+  }
   componentWillReceiveProps(nextProps) {
-    if (nextProps.currentDoc.id !== this.props.currentDoc.id) {
-      this.props.createDocumentSubscription(nextProps.currentDoc)
+    if (this.props.match.url !== nextProps.match.url) {
+      nextProps.pullDoc().then(
+        (action) => {
+          nextProps.createDocumentSubscription(action.doc)
+        }
+       )
     }
     //this is a temporary solution to close websocket loop
     nextProps.chars.forEach( (char) => {

@@ -4,6 +4,9 @@ Rails.application.routes.draw do
   namespace :api, defaults: {format: :json} do
     resources :users, only: [:create, :index, :update]
     resources :documents, only: [:create]
+
+    get 'documents/:path', to: 'documents#pull'
+
     resource :session, only: [:destroy]
   end
 
