@@ -19,3 +19,7 @@ export const getCharString = (state) => {
   })
   return charString.string;
 }
+
+export const getStringVal = (state) => {
+  return getCharString(state).map( (char) => char.value).join('');
+}

@@ -5,7 +5,7 @@ const INSERT_TEXT = 'insertText';
 const INSERT_LINE_BREAK = 'insertLineBreak';
 const DELETE_CONTENT_BACKWARD = 'deleteContentBackward';
 
-export const DocumentChangeHandler = (charString, e, doc) => {
+export const EditorChangeHandler = (charString, e, doc, cursorIdx) => {
   const subscription = App['document' + doc.id]
   var val;
   const cursorPosition = e.target.selectionStart - 1;
@@ -30,5 +30,24 @@ export const DocumentChangeHandler = (charString, e, doc) => {
     char = charString[cursorPosition + 1];
     message = new Message("REMOVE", char);
     message.fire(subscription)
+  }
+}
+
+export const QuillKeydownHandler = (charString, e, doc, cursorIdx) => {
+  const subscription = App['document' + doc.id];
+  let char;
+  let message;
+  let val;
+  if (e.key === 'Backspace') {
+    char = charString[cursorPosition + 1];
+    message = new Message("REMOVE", char);
+    message.fire(subscription)
+  } else if (!e.ctrlKey && !e.altKey && !e.metaKey) {
+    e.key === 'Enter' ? val = '\n' : val = e.key
+    char = new Char(charString, cursorIdx, 0, val, 0);
+    message = new Message("ADD", char);
+    message.fire(subscription);
+  } else {
+    console.log(`${e.key} not yet supported.`)
   }
 }

@@ -82,7 +82,7 @@ export class Char {
   getPosAtIdx(chars,idx,site) {
     let pos1;
     let pos2;
-    chars.length === 0 ? pos1 = Position.MIN_POS : pos1 = chars[idx-1].pos
+    idx === 0 ? pos1 = Position.MIN_POS : pos1 = chars[idx-1].pos
     idx === chars.length ? pos2 = Position.MAX_POS : pos2 = chars[idx].pos
     return new Position(pos1,pos2,site);
   }
