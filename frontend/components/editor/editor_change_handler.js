@@ -5,6 +5,7 @@ const INSERT_TEXT = 'insertText';
 const INSERT_LINE_BREAK = 'insertLineBreak';
 const DELETE_CONTENT_BACKWARD = 'deleteContentBackward';
 
+//Delete below function when appropriate.
 export const EditorChangeHandler = (charString, e, doc, cursorIdx) => {
   const subscription = App['document' + doc.id]
   var val;
@@ -39,11 +40,12 @@ export const QuillKeydownHandler = (charString, e, doc, cursorIdx) => {
   let message;
   let val;
   if (e.key === 'Backspace') {
-    char = charString[cursorPosition + 1];
+    if (cursorIdx === 0) return;
+    char = charString[cursorIdx+ 1];
     message = new Message("REMOVE", char);
     message.fire(subscription)
   } else if (!e.ctrlKey && !e.altKey && !e.metaKey) {
-    e.key === 'Enter' ? val = '\n' : val = e.key
+    e.key === 'Enter' ? val = '<br>' : val = e.key
     char = new Char(charString, cursorIdx, 0, val, 0);
     message = new Message("ADD", char);
     message.fire(subscription);
