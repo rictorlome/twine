@@ -14,17 +14,17 @@ export class BackupEditor extends React.Component {
     this.handleKeyDown = this.handleKeyDown.bind(this);
   }
   handleKeyDown(e) {
-    debugger
     if (["ArrowRight", "ArrowLeft", "ArrowUp", "ArrowDown"].includes(e.key)) return;
     e.preventDefault();
     QuillKeydownHandler(this.props.chars, e, this.props.document, this.state.cursorIdx);
   }
   render() {
     return (
-      <ReactQuillLite
-        onKeyUp={this.handleKeyDown}
-        stringVal={this.props.stringVal}
-        />
+      <div onKeyDown={this.handleKeyDown}>
+        <ReactQuillLite
+          stringVal={this.props.stringVal}
+          />
+      </div>
     )
   }
 }
