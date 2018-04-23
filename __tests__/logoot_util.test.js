@@ -36,6 +36,8 @@ const two_ID = new Identifier(2,1);
 const three_ID = new Identifier(3,1);
 const four_ID = new Identifier(4,1);
 
+const pos_one_one = {stack: [one_ID, one_ID]}
+const pos_two = {stack: [two_ID]}
 const pos_one_two = {stack: [one_ID, two_ID]};
 const pos_four = {stack: [four_ID]};
 const pos_four_two = {stack: [four_ID,two_ID]};
@@ -63,6 +65,17 @@ describe('Position', () => {
           Position.findPosBetween(pos_four,pos_four,0)
         }).toThrow(/equal/);
       });
+    })
+    describe("When Position1's stack is longer than Position2's", () => {
+      //Example case:
+      //1 1
+      //2
+      it('Loops through the longer stack incrementing as necessary', () => {
+        resStack = Position.findPosBetween(pos_one_one,pos_two,0);
+        expect(resStack[0].digit).toEqual(1);
+        expect(resStack[1].digit).toEqual(2);
+        expect(resStack.length).toEqual(2);
+      })
     })
     describe('When delta between relevant Identifier digit is > 1', () => {
       //Example case:

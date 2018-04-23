@@ -14,6 +14,7 @@ export class ReactQuillLite extends Component {
         'cursors':true
       }
     })
+    this.props.passUpQuill(this.editor)
     //for testing purposes..
     window.editor = this.editor
 
@@ -25,9 +26,9 @@ export class ReactQuillLite extends Component {
   componentWillReceiveProps(nextProps) {
     if (this.props.stringVal !== nextProps.stringVal) {
       this.editor.setText(nextProps.stringVal+'\n')
+      this.editor.setSelection(nextProps.idx+1,'api')
     }
   }
-
   render() {
     return <div ref={el => this.editorNode = el}/>
   }
@@ -36,6 +37,7 @@ export class ReactQuillLite extends Component {
 ReactQuillLite.propTypes = {
   theme: PropTypes.string,
   placeholder: PropTypes.string,
+  passUpQuill: PropTypes.func
 }
 
 ReactQuillLite.defaultProps = {

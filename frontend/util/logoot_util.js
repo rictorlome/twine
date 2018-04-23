@@ -46,15 +46,20 @@ Position.compare = function(pos1, pos2) {
 
 Position.findPosBetween = function(pos1, pos2, mySite) {
   const comparison = Position.compare(pos1,pos2);
-  if (comparison === 0) throw 'Positions are equal';
+  if (comparison === 0) {
+    debugger
+    throw 'Positions are equal';
+  }
   if (comparison !== -1) return Position.findPosBetween(pos2,pos1,mySite);
     //returns an array of identifiers
     const stack1 = pos1.stack;
     const stack2 = pos2.stack;
+    const stack1_len = stack1.length;
+    const stack2_len = stack2.length;
     const newStack = [];
-    for (let i = 0; i < stack2.length; i++) {
+    for (let i = 0; i < Math.max(stack1_len,stack2_len); i++) {
       const id_1 = stack1[i] || new Identifier(0,mySite);
-      const id_2 = stack2[i];
+      const id_2 = stack2[i] || new Identifier(Position.SIZE,mySite)
       if (Identifier.compare(id_1,id_2) === 0) {
         newStack.push(id_1);
         continue;
@@ -65,8 +70,10 @@ Position.findPosBetween = function(pos1, pos2, mySite) {
           return newStack;
         } else if (delta === 1) {
           newStack.push(id_1);
-          newStack.push(new Identifier(1,mySite));
-          return newStack;
+          if (stack1_len <= stack2_len) {
+            newStack.push(new Identifier(1,mySite));
+            return newStack;
+          }
         }
       }
     }
@@ -96,22 +103,5 @@ export class CharString {
     this.string.push(char);
     this.sort();
   }
-  sort() {
-    //Bubble
-    if (this.string.length < 2) return;
-    let sorted = false;
-    while (!sorted) {
-      sorted = true;
-      for (let i = 0; i < this.string.length-1; i++) {
-        const comp = Position.compare(this.string[i].pos,this.string[i+1].pos)
-        if (comp === 1) {
-          const tmp = this.string[i];
-          this.string[i] = this.string[i+1];
-          this.string[i+1] = tmp;
-          sorted = false;
-        }
-      }
-    }
-    return;
-  }
+  sort() { this.string.sort(function(a,b) { return Position.compare(a.pos, b.pos); }); }
 }
