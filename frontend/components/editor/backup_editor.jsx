@@ -3,7 +3,8 @@ import { Quill } from 'react-quill'
 import { ReactQuillLite } from './react_quill_lite.jsx';
 // import QuillCursors from 'quill-cursors'
 
-import { EditorChangeHandler, QuillKeydownHandler } from './editor_change_handler.js'
+import { EditorChangeHandler, QuillKeydownHandler } from './editor_change_handler.js';
+import { EditorSelectionHandler } from './editor_selection_handler.js';
 
 export class BackupEditor extends React.Component {
   constructor(props) {
@@ -29,7 +30,7 @@ export class BackupEditor extends React.Component {
   }
 
   handleSelection(range,oldRange,source) {
-    debugger
+    EditorSelectionHandler(range,oldRange,source,this.props.currentUser, this.props.document)
   }
 
   render() {

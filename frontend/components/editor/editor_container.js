@@ -7,7 +7,8 @@ import { getCharString, getStringVal } from '../../selectors/doc_selectors';
 const msp = (state) => {
   return {
     chars: getCharString(state),
-    stringVal: getStringVal(state)
+    stringVal: getStringVal(state),
+    currentUser: state.session.currentUser
   }
 }
 

@@ -11,7 +11,7 @@ export const selectionReducer = (oldState=defaultState, action) => {
   const newObj = {};
   switch(action.type) {
     case RECEIVE_SELECTION:
-      newObj[action.selection.user_id] = action.selection;
+      newObj[action.user] = action.selection;
       return merge({},oldState,newObj)
     default:
       return oldState;

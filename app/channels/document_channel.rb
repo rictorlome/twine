@@ -15,5 +15,10 @@ class DocumentChannel < ApplicationCable::Channel
     m = data['message']
     d = data['document']
     NewMessageBroadcastJob.perform_later(m,d)
-  end  
+  end
+  def select(data)
+    m = data['message']
+    d = data['document']
+    NewMessageBroadcastJob.perform_later(m,d)
+  end
 end
