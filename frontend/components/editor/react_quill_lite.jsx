@@ -29,6 +29,7 @@ export class ReactQuillLite extends Component {
       this.editor.setSelection(nextProps.idx+1,'api')
     }
   }
+
   render() {
     return <div ref={el => this.editorNode = el}/>
   }

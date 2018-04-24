@@ -19,9 +19,9 @@
   visibility: hidden;
 }
 
-.quill {
-  width: 80%;
-  margin: 0 auto;
+.ql-container {
+  width: 70%;
+  margin: 50px auto;
 }
 
 .ql-editor {

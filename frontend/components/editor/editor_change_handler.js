@@ -46,6 +46,7 @@ export const QuillKeydownHandler = (charString, e, doc, cursorIdx) => {
     message.fire(subscription)
   } else if (!e.ctrlKey && !e.altKey && !e.metaKey) {
     e.key === 'Enter' ? val = '\n' : val = e.key
+    if (e.key === 'Enter') cursorIdx--;
     char = new Char(charString, cursorIdx, 0, val, 0);
     message = new Message("ADD", char);
     message.fire(subscription);

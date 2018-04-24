@@ -10,6 +10,7 @@ export class BackupEditor extends React.Component {
     super(props);
     this.handleKeyDown = this.handleKeyDown.bind(this);
     this.passUpQuill = this.passUpQuill.bind(this);
+    this.handleSelection = this.handleSelection.bind(this);
   }
   handleKeyDown(e) {
     if (["ArrowRight", "ArrowLeft", "ArrowUp", "ArrowDown"].includes(e.key)) return;
@@ -23,12 +24,18 @@ export class BackupEditor extends React.Component {
   }
   passUpQuill(quill) {
     this.quill = quill;
+    this.quill.on('selection-change', this.handleSelection)
     return;
+  }
+
+  handleSelection(range,oldRange,source) {
+    debugger
   }
 
   render() {
     return (
-      <div onKeyDown={this.handleKeyDown}>
+      <div
+        onKeyDown={this.handleKeyDown}>
         <ReactQuillLite
           idx={this.getIdx()}
           passUpQuill={(instance) => this.passUpQuill(instance)}
