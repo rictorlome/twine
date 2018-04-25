@@ -6,8 +6,9 @@ export class SignUp extends React.Component {
     this.state = {
       name: ''
     }
-    this.handleChange = this.handleChange.bind(this)
-    this.handleClick = this.handleClick.bind(this)
+    this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
   handleChange(e) {
     this.setState({name: e.target.value})
@@ -17,13 +18,20 @@ export class SignUp extends React.Component {
       () => this.props.history.push(`/documents/${this.props.lastDocPath}`)
     )
   }
+  handleSubmit(e) {
+    e.preventDefault();
+    this.handleClick();
+  }
   render() {
     return (
-      <div>
+      <form
+        onSubmit={this.handleSubmit}
+        >
         Hello from signup
 
         <div>
-          <input placeholder={"What's your name?"}
+          <input
+            placeholder={"What's your name?"}
             onChange={this.handleChange}
             />
         </div>
@@ -31,7 +39,7 @@ export class SignUp extends React.Component {
         <div onClick={this.handleClick}>
           Click here to submit
         </div>
-      </div>
+      </form>
     )
   }
 }

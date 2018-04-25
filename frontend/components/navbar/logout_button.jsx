@@ -14,12 +14,16 @@ export class LogoutButton extends React.Component {
     this.props.loggedIn ? className = "logout-button-wrapper" : className = "hidden";
     return className;
   }
+  getUserMessage() {
+    return (this.props.loggedIn ? `Hello, ${this.props.currentUser.name}` : "" );
+  }
   render() {
     return (
-      <div
-        onClick={this.handleClick}
-        className={this.determineClass()}>
-        Hello from logout button
+      <div className={this.determineClass()}>
+        {this.getUserMessage()}
+        <div onClick={this.handleClick}>
+          Click here to log out.
+        </div>
       </div>
     )
   }

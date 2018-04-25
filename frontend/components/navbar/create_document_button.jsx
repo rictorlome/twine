@@ -14,7 +14,7 @@ export class CreateDocumentButton extends React.Component {
     return (
       <div className="create-document-button-wrapper"
         onClick={this.handleClick}>
-        Hello from the Create Document Button
+        Click to create a document.
       </div>
     )
   }

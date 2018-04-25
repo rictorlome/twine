@@ -6,7 +6,6 @@ import LogoutButton from './logout_button_container.js';
 const NavBar = () => {
   return (
     <div className="navbar-wrapper">
-      Hello from the NavBar
       <CreateDocumentButton />
       <LogoutButton />
     </div>

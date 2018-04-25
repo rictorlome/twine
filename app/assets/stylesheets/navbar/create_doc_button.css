@@ -1,6 +1,9 @@
 .create-document-button-wrapper {
-  background-color: yellow;
+  background-color: #f9f990;
   padding: 1%;
   grid-column: 3/4;
   cursor: pointer;
+  text-align: center;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
 }

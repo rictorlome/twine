@@ -7,19 +7,16 @@ export class Document extends React.Component {
   constructor(props) {
     super(props)
   }
-  componentWillMount() {
-    this.props.createDocumentSubscription(this.props.currentDoc);
-  }
   componentDidMount() {
-    this.props.pullDoc();
+    this.props.pullDoc().then(({doc}) => {
+      this.props.createDocumentSubscription(doc)
+    });
   }
   componentWillReceiveProps(nextProps) {
     if (this.props.match.url !== nextProps.match.url) {
-      nextProps.pullDoc().then(
-        (action) => {
-          nextProps.createDocumentSubscription(action.doc)
-        }
-       )
+      nextProps.pullDoc().then(({doc}) => {
+          nextProps.createDocumentSubscription(doc)
+      });
     }
   }
 
