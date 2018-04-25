@@ -16,17 +16,12 @@ export class BackupEditor extends React.Component {
   handleKeyDown(e) {
     if (["ArrowRight", "ArrowLeft", "ArrowUp", "ArrowDown"].includes(e.key)) return;
     e.preventDefault();
-    const idx = this.getIdx()
+    const idx = this.props.currentUserSelection.index
     QuillKeydownHandler(this.props.chars, e, this.props.document, idx);
-  }
-  getIdx() {
-    if (this.quill === undefined || this.quill.getSelection() === null) return 0;
-    return this.quill.getSelection().index;
   }
   passUpQuill(quill) {
     this.quill = quill;
-    this.quill.on('selection-change', this.handleSelection)
-    return;
+    this.quill.on('selection-change', this.handleSelection);
   }
 
   handleSelection(range,oldRange,source) {
@@ -38,7 +33,7 @@ export class BackupEditor extends React.Component {
       <div
         onKeyDown={this.handleKeyDown}>
         <ReactQuillLite
-          idx={this.getIdx()}
+          idx={this.props.currentUserSelection.index}
           passUpQuill={(instance) => this.passUpQuill(instance)}
           stringVal={this.props.stringVal}
           />
