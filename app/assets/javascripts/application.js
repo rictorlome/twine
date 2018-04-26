@@ -11,5 +11,6 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery.atwho
 //= require rails-ujs
 //= require_tree .

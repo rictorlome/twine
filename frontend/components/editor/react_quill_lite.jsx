@@ -17,6 +17,7 @@ export class ReactQuillLite extends Component {
       }
     })
     this.props.passUpQuill(this.editor)
+    this.props.passUpStatus()
     //for testing purposes..
     window.editor = this.editor
 

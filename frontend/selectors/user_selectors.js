@@ -7,3 +7,12 @@ export const getCurrentUser = (state) => {
 export const getCurrentUserSelection = (state) => {
   return (state.entities.selections[state.session.currentUser] === undefined ? {'index': 0, 'range': 0} : state.entities.selections[state.session.currentUser])
 }
+
+// Below selectors assume one document per session.
+export const getUsersInDocument = (state) => {
+  return Object.values(state.entities.users)
+}
+
+export const getDocUsersSelections = (state) => {
+  return Object.values(state.entities.selections)
+}

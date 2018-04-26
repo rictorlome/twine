@@ -14,6 +14,8 @@ export class Message {
       Subscription.remove(this);
     } else if (this.type === "SELECT") {
       Subscription.select(this);
+    } else if (this.type === "JOIN") {
+      Subscription.join(this);
     }
   };
 }

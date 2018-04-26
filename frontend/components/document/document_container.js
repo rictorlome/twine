@@ -15,7 +15,7 @@ const msp = (state, withRouter) => {
   return {
     currentDoc: getCurrentDoc(state, withRouter),
     chars: getCharString(state),
-
+    currentUser: state.entities.users[state.session.currentUser]
   }
 }
 
@@ -23,7 +23,7 @@ const mdp = (dispatch, withRouter) => {
   return {
     pullDoc: () => dispatch(pullDocument(withRouter.match.params.documentId)),
     createUser: (user) => dispatch(createUser(user)),
-    createDocumentSubscription: (document) => createDocumentSubscription(document,dispatch)
+    createDocumentSubscription: (document, user) => createDocumentSubscription(document,dispatch, user)
   }
 }
 
