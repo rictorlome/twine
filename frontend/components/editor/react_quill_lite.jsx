@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 import Quill from 'quill'
 import QuillCursors from 'quill-cursors'
 
+//The base of this code was taken from an issue on the ReactQuill github.
+//https://github.com/zenoamaro/react-quill/issues/237
 export class ReactQuillLite extends Component {
   componentDidMount() {
     Quill.register('modules/cursors', QuillCursors)

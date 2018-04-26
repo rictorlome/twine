@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Editor from '../editor/editor_container.js';
-import BackupEditor from '../editor/editor_container.js';
 
 export class Document extends React.Component {
   constructor(props) {
@@ -23,7 +22,7 @@ export class Document extends React.Component {
   render() {
     return (
       <div>
-        <BackupEditor document={this.props.currentDoc} />
+        <Editor document={this.props.currentDoc} />
       </div>
     )
   }

@@ -1,56 +1,41 @@
 import React from 'react';
+import { ReactQuillLite } from './react_quill_lite.jsx';
 
-import ReactQuill, { Quill } from 'react-quill';
-import QuillCursors from 'quill-cursors'
-
-import { EditorChangeHandler, QuillKeydownHandler } from './editor_change_handler.js'
+import { EditorKeydownHandler } from './editor_change_handler.js';
+import { EditorSelectionHandler } from './editor_selection_handler.js';
 
 export class Editor extends React.Component {
   constructor(props) {
-    super(props)
-    this.state = {
-      cursorIdx: 0
-    }
+    super(props);
     this.handleKeyDown = this.handleKeyDown.bind(this);
+    this.passUpQuill = this.passUpQuill.bind(this);
     this.handleSelection = this.handleSelection.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    Quill.register('modules/cursors', QuillCursors)
-    this.modules = {
-      'syntax': true,
-      'cursors': true
-    }
-  }
-  componentDidMount() {
-    this.cursors = this.quillRef.getEditor().getModule('cursors')
   }
   handleKeyDown(e) {
-    this.cursors.setCursor({
-      id: '1',
-      name: 'User 1',
-      color: 'red',
-      range: this.cursors.quill.getSelection()
-    })
-    return;
     if (["ArrowRight", "ArrowLeft", "ArrowUp", "ArrowDown"].includes(e.key)) return;
     e.preventDefault();
-    QuillKeydownHandler(this.props.chars, e, this.props.document, this.state.cursorIdx);
+    const idx = this.props.currentUserSelection.index
+    EditorKeydownHandler(this.props.chars, e, this.props.document, idx);
   }
-  handleChange(content, delta, source, editor) {
-    window.delta = delta;
+  passUpQuill(quill) {
+    this.quill = quill;
+    this.quill.on('selection-change', this.handleSelection);
   }
-  handleSelection(range,source,editor) {
-    return;
-    this.setState({cursorIdx: range.index})
+
+  handleSelection(range,oldRange,source) {
+    EditorSelectionHandler(range,oldRange,source,this.props.currentUser, this.props.document)
   }
+
   render() {
-    return <ReactQuill value={this.props.stringVal}
-                       placeholder={'Hello'}
-                       theme="bubble"
-                       onChange={this.handleChange}
-                       ref={(el) => this.quillRef = el}
-                       onKeyDown={this.handleKeyDown}
-                       modules={this.modules}
-                       onChangeSelection={this.handleSelection}
-                        />
+    return (
+      <div
+        onKeyDown={this.handleKeyDown}>
+        <ReactQuillLite
+          idx={this.props.currentUserSelection.index}
+          passUpQuill={(instance) => this.passUpQuill(instance)}
+          stringVal={this.props.stringVal}
+          />
+      </div>
+    )
   }
 }
